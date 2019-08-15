@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="album py-5">
+            <div class="container">
+                <div class="row infinite-container">
+                    {% for post in posts %}
+                        <div class="col-md-6 infinite-item">
+                            <div class="card mb-4 shadow-sm">
+                                <img class="img-thumbnail"  src="{{post.image.url}}"/>
+                                <div class="card-body">
+                                    <h5>{{post.title}}</h5>
+                                    <p class="card-text">{{post.description|truncatewords:20}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if page_obj.has_next %}
+                <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                {% endif %}
+                <div class="d-flex justify-content-center" style="display:none;">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="/static/js/jquery-2.2.4.min.js"></script>
+    <script src="/static/js/jquery.waypoints.min.js"></script>
+    <script src="/static/js/infinite.min.js"></script>
+    <script>
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        handler: function(direction) {
+        
+    },
+    offset: 'bottom-in-view',
+    onBeforePageLoad: function () {
+    $('.spinner-border').show();
+    },
+    onAfterPageLoad: function () {
+    $('.spinner-border').hide();
+    }
+    
+        
+    });
+
+              </script>
+    </body>
+</html>
